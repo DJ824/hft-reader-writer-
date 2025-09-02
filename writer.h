@@ -57,7 +57,7 @@ public:
     bool enqueue(const Row& r) noexcept { return queue_.enqueue(r); }
     uint64_t dropped() const noexcept { return dropped_.load(std::memory_order_relaxed); }
     uint64_t rows() const noexcept { return rows_.load(std::memory_order_acquire); }
-    uint64_t hour_s() const noexcept { return day_start_; } // kept name for ABI; now returns day start
+    uint64_t hour_s() const noexcept { return day_start_; } 
 
 private:
     int fd_{-1};
