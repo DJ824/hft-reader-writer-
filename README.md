@@ -1,7 +1,7 @@
 # hft data reader/writer
 
 writes different forms of hft data to disk in binary format
-uses an Structure of Arrays format, with 1 column per field
+uses a Structure of Arrays format, with 1 column per field
 
 ex) say we want to store level 2 data, 4 fields
 
