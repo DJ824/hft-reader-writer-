@@ -40,3 +40,11 @@ on a first pass, we read this data into the orderbook, calculate and store facto
 then, we write those factors to disk
 
 on any subsequent passes, we can avoid having to read level 2/3 orderbook data into the book again, and can directly pass the factors to our strategy code, this saves a LOT of time when it comes to backtesting intraday data over long ranges
+
+there are certain drawbacks to this implementation, 
+
+since we are accessing anywhere from 3-6 different areas in memory, this puts immense pressure on the tlb, since pages need to be constantly swapped in/out 
+
+to remedy this, we implement a staging buffer that uses huge pages (2mb), since ext4 does not support huge pages, which results in each tlb entry covering 512x more data vs normal 4kb backed pages (when i benchmarked this using level 3 data for sp500 futures, book processing went from around 20ns to 16ns, a decent gain, but i did not caluclate how long it takes to copy the data after processing each file)  
+
+one thing on the todo list is to experiment with data compression 
