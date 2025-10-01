@@ -47,4 +47,13 @@ since we are accessing anywhere from 3-6 different areas in memory, this puts im
 
 to remedy this, we implement a staging buffer that uses huge pages (2mb), since ext4 does not support huge pages, which results in each tlb entry covering 512x more data vs normal 4kb backed pages (when i benchmarked this using level 3 data for sp500 futures, book processing went from around 20ns to 16ns, a decent gain, but i did not caluclate how long it takes to copy the data after processing each file)  
 
-one thing on the todo list is to experiment with data compression 
+### update 
+
+<img width="958" height="783" alt="image" src="https://github.com/user-attachments/assets/d02c55de-bad0-4267-a6a9-a674246ef984" />
+
+implemented data compression using frame of reference/zigzag encoding, compressed 6.4 gigs of data -> 2.9 
+
+https://lemire.me/blog/2012/02/08/effective-compression-using-frame-of-reference-and-delta-coding/
+
+https://lemire.me/blog/2022/11/25/making-all-your-integers-positive-with-zigzag-encoding/
+
